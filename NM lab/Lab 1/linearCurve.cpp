@@ -62,6 +62,7 @@ int main()
 // Initialize variables sumX = 0, sumY = 0, sumXY = 0, sumX2 = 0.
 // Calculate sumX,sumY,sumXY,sumX2 by iterating i from 0 to n-1
 // Calculate Parameters:
+//  determinant = n * sumX2 - sumX * sumX
 //  determinantMatrixA = sumX2 * sumY - sumX * sumXY
 //  determinantMatrixB = n * sumXY - sumX * sumY
 //  a = determinantMatrixA / determinant
