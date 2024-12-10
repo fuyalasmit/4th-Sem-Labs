@@ -16,26 +16,12 @@ int precedence(char op)
 }
 bool isOperator(char op)
 {
-    if (op == '+' || op == '-' || op == '*' || op == '/' || op == '^')
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return (op == '+' || op == '-' || op == '*' || op == '/' || op == '^');
 }
 
 bool isOperand(char op)
 {
-    if ((op >= 'A' && op <= 'Z') || (op >= 'a' && op <= 'z') || (op >= '0' && op <= '9'))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }
+    return ((op >= 'A' && op <= 'Z') || (op >= 'a' && op <= 'z') || (op >= '0' && op <= '9'));
 }
 
 string infixToPostfix(string infix)
@@ -44,13 +30,12 @@ string infixToPostfix(string infix)
     string postfix = "";
     int i = 0; // Start from the first character
 
-    while (i < infix.length())
-    { // Continue until all characters are processed
+    while (i < infix.length()) // Continue until all characters are processed
+    { 
         char c = infix[i];
-
         if (isOperand(c))
         {
-            postfix = postfix + c; // Append operands directly
+            postfix += c; // Append operands directly
         }
         else if (c == '(')
         {
@@ -68,7 +53,7 @@ string infixToPostfix(string infix)
         }
         else if (isOperator(c))
         {
-            while (!st.empty() && precedence(st.top()) >= precedence(c))
+            while (!st.empty() && precedence(c) <= precedence(st.top()) )
             {
                 postfix += st.top();
                 st.pop();

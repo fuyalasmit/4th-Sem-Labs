@@ -9,9 +9,9 @@ using namespace std;
 int evaluatePostfix(string expression)
 {
     stack<int> st;
-
-    for (char c : expression)
+    for (int i = 0; i < expression.length(); i++)
     {
+        char c = expression[i];
         if (isdigit(c))
         {
             // Push operands (convert char to int)
@@ -19,25 +19,24 @@ int evaluatePostfix(string expression)
         }
         else
         {
-
-            int operand2 = st.top();
+            int A = st.top();
             st.pop();
-            int operand1 = st.top();
+            int B = st.top();
             st.pop();
 
             switch (c)
             {
             case '+':
-                st.push(operand1 + operand2);
+                st.push(B + A);
                 break;
             case '-':
-                st.push(operand1 - operand2);
+                st.push(B - A);
                 break;
             case '*':
-                st.push(operand1 * operand2);
+                st.push(B * A);
                 break;
             case '/':
-                st.push(operand1 / operand2);
+                st.push(B / A);
                 break;
             }
         }

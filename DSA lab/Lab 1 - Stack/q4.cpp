@@ -3,12 +3,11 @@
 #include <stack>
 using namespace std;
 
-// Function to check if parentheses are balanced
 bool checkParentheses(string expression) {
     stack<char> st;
-    int i = 0; // Initialize the index for the while loop
+    int i ;
 
-    while (i < expression.length()) { // Loop through the entire string
+    for (i=0;i < expression.length();i++) { // Loop through the entire string
         char c = expression[i];
 
         if (c == '(') {
@@ -20,10 +19,8 @@ bool checkParentheses(string expression) {
             st.pop(); // Pair matched, pop the stack
         }
 
-        i++; // Move to the next character in the expression
     }
-
-    // If stack is empty, all parentheses are paired
+    
     return st.empty();
 }
 

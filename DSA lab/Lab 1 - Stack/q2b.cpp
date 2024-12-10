@@ -40,7 +40,7 @@ string infixToPrefix(string infix) {
             st.pop(); // Pop closing parenthesis
         }
         else if (isOperator(c)) {
-            while (!st.empty() && precedence(st.top()) > precedence(c)) {
+            while (!st.empty() && precedence(c) < precedence(st.top()) ) {
                 prefix = st.top() + prefix; // Pop operators and prepend to the result
                 st.pop();
             }

@@ -1,49 +1,62 @@
 // Perform push and pop operations in stack
 
 #include <iostream>
-
 using namespace std;
 
-const int SIZE = 5;
-int top = -1;
-int stack[SIZE];
-
-void push(int value)
+class Stack
 {
-    if (top >= SIZE - 1)
+private:
+    int top, SIZE;
+    int *arr;
+
+public:
+    Stack(int n)
     {
-        cout << "Stack overflow, cannot push." << endl;
+        top = -1;
+        SIZE = n;
+        arr = new int[SIZE];
     }
-    else
+    void push(int value)
     {
-        top++;
-        stack[top] = value;
-        cout << value << " is pushed into stack." << endl;
+        if (top >= SIZE - 1)
+        {
+            cout << "Stack overflow, cannot push." << endl;
+        }
+        else
+        {
+            top++;
+            arr[top] = value;
+            cout << value << " is pushed into stack." << endl;
+        }
     }
-}
-void pop(){
-    if(top < 0){
-        cout<<"Stack underflow, cannot pop."<<endl;
+    void pop()
+    {
+        if (top < 0)
+        {
+            cout << "Stack underflow, cannot pop." << endl;
+        }
+        else
+        {
+            cout << arr[top] << " is popped out of the stack." << endl;
+            top--;
+        }
     }
-    else{
-        cout<<stack[top]<< " is popped out of the stack."<<endl;
-        top--;
-    }
-}
+};
 
 int main()
 {
-    push(5);
-    push(10);
-    push(11);
-    push(11);
-    push(11);
-    push(11);
-    pop();
-    pop();
-    pop();
-    pop();
-    pop();
-    pop();
+    Stack a(5);
+    a.push(2);
+    a.push(5);
+    a.push(10);
+    a.push(11);
+    a.push(11);
+    a.push(11);
+    a.pop();
+    a.pop();
+    a.pop();
+    a.pop();
+    a.pop();
+    a.pop();
     return 0;
 }
