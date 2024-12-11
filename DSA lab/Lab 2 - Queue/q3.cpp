@@ -35,21 +35,21 @@ public:
         {
             f = r = 0;
             arr[r] = x;
-            cout << arr[r] << " is queued to the queue." << endl;
+            cout << arr[r] << " is added to the queue." << endl;
         }
         else
         {
             r = (r + 1) % size;
             arr[r] = x;
-            cout << arr[r] << " is queued to the queue." << endl;
+            cout << arr[r] << " is added to the queue." << endl;
         }
     }
- void enqueueF()
+    void enqueueF()
     {
         int x;
         cout << "Enter value to add at the front: " << endl;
         cin >> x;
-        if ((f + size -1) % size == r)
+        if ((f + size - 1) % size == r)
         {
             cout << "Queue overflow, can't add." << endl;
         }
@@ -57,13 +57,13 @@ public:
         {
             f = r = 0;
             arr[f] = x;
-            cout << arr[f] << " is queued to the queue." << endl;
+            cout << arr[f] << " is added to the queue." << endl;
         }
         else
         {
             f = (f - 1 + size) % size;
             arr[f] = x;
-            cout << arr[f] << " is queued to the queue." << endl;
+            cout << arr[f] << " is added to the queue." << endl;
         }
     }
     void dequeueF()
@@ -74,12 +74,12 @@ public:
         }
         else if (f == r)
         {
-            cout << arr[f] << " is dequeued from the queue." << endl;
+            cout << arr[f] << " is removed from the queue." << endl;
             f = r = -1;
         }
         else
         {
-            cout << arr[f] << " is dequeued from the queue." << endl;
+            cout << arr[f] << " is removed from the queue." << endl;
             f = (f + 1) % size;
         }
     }
@@ -91,14 +91,33 @@ public:
         }
         else if (f == r)
         {
-            cout << arr[r] << " is dequeued from the queue." << endl;
+            cout << arr[r] << " is removed from the queue." << endl;
             f = r = -1;
         }
         else
         {
-            cout << arr[r] << " is dequeued from the queue." << endl;
+            cout << arr[r] << " is removed from the queue." << endl;
             r = (r - 1 + size) % size;
         }
+    }
+    void display()
+    {
+        if (f == -1 && r == -1)
+        {
+            cout << "Queue is empty." << endl;
+            return;
+        }
+
+        cout << "Current queue is: ";
+        int i = f;
+        while (true)
+        {
+            cout << arr[i] << "\t";
+            if (i == r)
+                break;
+            i = (i + 1) % size; 
+        }
+        cout << endl;
     }
 };
 
@@ -108,7 +127,7 @@ int main()
     char choice;
     do
     {
-        cout << "\nEnter your choice:\n a. Add at beginning\n b. Add at end\n c. Delete from beginning\n d. Delete from end\n e. Exit\n";
+        cout << "\nEnter your choice:\n a. Add at beginning\n b. Add at end\n c. Delete from beginning\n d. Delete from end\n e. Display the queue \n f. Exit\n";
         cin >> choice;
 
         switch (choice)
@@ -126,6 +145,9 @@ int main()
             q.dequeueR();
             break;
         case 'e':
+            q.display();
+            break;
+        case 'f':
             cout << "Exiting program." << endl;
             break;
         default:

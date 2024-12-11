@@ -45,16 +45,10 @@ public:
 
 int main()
 {
-    Stack a(5);
+    Stack a(2);
     a.push(2);
     a.push(5);
     a.push(10);
-    a.push(11);
-    a.push(11);
-    a.push(11);
-    a.pop();
-    a.pop();
-    a.pop();
     a.pop();
     a.pop();
     a.pop();
