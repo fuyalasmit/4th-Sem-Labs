@@ -10,8 +10,7 @@ using namespace std;
 class Queue
 {
 private:
-    int f, r;
-    int size;
+    int f, r,size;
     int *arr;
 
 public:
@@ -35,13 +34,13 @@ public:
         {
             f = r = 0;
             arr[r] = x;
-            cout << arr[r] << " is added to the queue." << endl;
+            cout << arr[r] << " is added to the queue end." << endl;
         }
         else
         {
             r = (r + 1) % size;
             arr[r] = x;
-            cout << arr[r] << " is added to the queue." << endl;
+            cout << arr[r] << " is added to the queue end." << endl;
         }
     }
     void enqueueF()
@@ -57,13 +56,13 @@ public:
         {
             f = r = 0;
             arr[f] = x;
-            cout << arr[f] << " is added to the queue." << endl;
+            cout << arr[f] << " is added to the queue front." << endl;
         }
         else
         {
             f = (f - 1 + size) % size;
             arr[f] = x;
-            cout << arr[f] << " is added to the queue." << endl;
+            cout << arr[f] << " is added to the queue front." << endl;
         }
     }
     void dequeueF()
@@ -74,12 +73,12 @@ public:
         }
         else if (f == r)
         {
-            cout << arr[f] << " is removed from the queue." << endl;
+            cout << arr[f] << " is removed from the queue front." << endl;
             f = r = -1;
         }
         else
         {
-            cout << arr[f] << " is removed from the queue." << endl;
+            cout << arr[f] << " is removed from the queue front." << endl;
             f = (f + 1) % size;
         }
     }
@@ -91,12 +90,12 @@ public:
         }
         else if (f == r)
         {
-            cout << arr[r] << " is removed from the queue." << endl;
+            cout << arr[r] << " is removed from the queue end." << endl;
             f = r = -1;
         }
         else
         {
-            cout << arr[r] << " is removed from the queue." << endl;
+            cout << arr[r] << " is removed from the queue end." << endl;
             r = (r - 1 + size) % size;
         }
     }
@@ -153,6 +152,6 @@ int main()
         default:
             cout << "Invalid choice, please try again." << endl;
         }
-    } while (choice != 'e');
+    } while (choice != 'f');
     return 0;
 }

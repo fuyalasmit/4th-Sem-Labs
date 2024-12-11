@@ -5,8 +5,7 @@ using namespace std;
 class Queue
 {
 private:
-    int f, r;
-    int size;
+    int f, r,size;
     int *arr;
 
 public:
