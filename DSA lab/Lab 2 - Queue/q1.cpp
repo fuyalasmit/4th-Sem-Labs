@@ -44,12 +44,12 @@ public:
         }
         else if (f == r)
         {
-            cout << arr[f] << " is dequeued of the queue." << endl;
+            cout << arr[f] << " is dequeued from the queue." << endl;
             f = r = -1;
         }
         else
         {
-            cout << arr[f] << " is dequeued of the queue." << endl;
+            cout << arr[f] << " is dequeued from the queue." << endl;
             f++;
         }
     }
@@ -57,17 +57,10 @@ public:
 
 int main()
 {
-    Queue q(5);
+    Queue q(2);
     q.enqueue(5);
     q.enqueue(6);
     q.enqueue(7);
-    q.enqueue(8);
-    q.enqueue(9);
-    q.enqueue(3);
-    q.enqueue(3);
-    q.dequeue();
-    q.dequeue();
-    q.dequeue();
     q.dequeue();
     q.dequeue();
     q.dequeue();

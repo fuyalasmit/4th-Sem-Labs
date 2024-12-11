@@ -49,7 +49,7 @@ public:
         int x;
         cout << "Enter value to add at the front: " << endl;
         cin >> x;
-        if ((f - 1 + size) % size == r)
+        if ((f + size -1) % size == r)
         {
             cout << "Queue overflow, can't add." << endl;
         }
