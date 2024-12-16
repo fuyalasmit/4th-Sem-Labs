@@ -55,7 +55,7 @@ int main()
             count++;
             if (count > 2 * n)
             {
-                cout << "Discontinuous, can't find the value of this function." << endl;
+                cout << "Discontinuous, couldn't find the value." << endl;
                 return 1;
             }
         } while (abs(f(c)) >= tolerance);
