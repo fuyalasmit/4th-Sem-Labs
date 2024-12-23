@@ -32,6 +32,7 @@ public:
         
         // If list is empty, make this node the head
         if (head == nullptr) {
+            // head vanne euta Node xa, which was initialized at the time of list obj creation
             head = newNode;
             return;
         }
@@ -155,29 +156,28 @@ public:
     }
 };
 
-// Demonstration of the implementation
+
 int main() {
     SinglyLinkedList list;
 
-    // Demonstrating insertion operations
     cout << "Inserting at beginning:" << endl;
     list.insertAtBeginning(10);
-    list.display();  // Should show: 10
+    list.display();  
 
     list.insertAtBeginning(5);
-    list.display();  // Should show: 5 10
+    list.display();  
 
     cout << "\nInserting at end:" << endl;
     list.insertAtEnd(15);
-    list.display();  // Should show: 5 10 15
+    list.display();  
 
     cout << "\nInserting after specific node:" << endl;
     list.insertAfter(10, 12);
-    list.display();  // Should show: 5 10 12 15
+    list.display();  
 
     cout << "\nInserting before specific node:" << endl;
     list.insertBefore(15, 14);
-    list.display();  // Should show: 5 10 12 14 15
+    list.display();  
 
     return 0;
 }

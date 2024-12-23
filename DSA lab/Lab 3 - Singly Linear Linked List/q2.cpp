@@ -160,11 +160,10 @@ public:
     }
 };
 
-// Demonstration of the implementation
+
 int main() {
     SinglyLinkedList list;
 
-    // Populate the list
     list.insertAtEnd(10);
     list.insertAtEnd(20);
     list.insertAtEnd(30);
@@ -174,7 +173,6 @@ int main() {
     cout << "Original List:" << endl;
     list.display();
 
-    // Demonstrate deletion operations
     cout << "\nDeleting from beginning:" << endl;
     list.deleteFromBeginning();
     list.display();
