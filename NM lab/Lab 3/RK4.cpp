@@ -1,11 +1,13 @@
 #include <iostream>
+#include<cmath>
 using namespace std;
 
 // Function to calculate dy/dx
 double fdash(double x, double y)
 {
-    return (x + y);
+    // return (x + y);
     // return x * cos(x);
+        return (x*x + y); 
 }
 
 int main()
