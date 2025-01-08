@@ -6,29 +6,31 @@
 #include <iostream>
 using namespace std;
 
-// Node class representing each element in the linked list
+// Node class representing each element in the doubly linked list
 class Node {
 public:
     int data;
     Node* next;
+    Node* prev;    // Additional pointer for previous node
 
     // Constructor
     Node(int value) {
         data = value;
         next = nullptr;
+        prev = nullptr;
     }
 };
 
-// Linked List class with insertion operations
-class SinglyLinkedList {
+class DoublyLinkedList {
 private:
-    Node* head; //head pointer keeps track of first node of list, at the time of initialization of any list, head is nullptr since it has no node
-    //head is a pointer that can hold address of Node object
+    Node* head;
+    Node* tail;    // Keep track of last node for efficient end operations
 
 public:
     // Constructor
-    SinglyLinkedList() {
+    DoublyLinkedList() {
         head = nullptr;
+        tail = nullptr;
     }
 
     // A. Insert node at the beginning of the list
@@ -36,15 +38,15 @@ public:
         // Create a new node
         Node* newNode = new Node(value);
         
-        // If list is empty, make this node the head
+        // If list is empty
         if (head == nullptr) {
-            // head vanne euta pointer xa, which was initialized at the time of list obj creation and it is nullptr at that time
-            head = newNode;
+            head = tail = newNode;
             return;
         }
         
-        // Set new node's next to current head
+        // Link new node with current head
         newNode->next = head;
+        head->prev = newNode;
         
         // Update head to point to new node
         head = newNode;
@@ -55,31 +57,29 @@ public:
         // Create a new node
         Node* newNode = new Node(value);
         
-        // If list is empty, make this node the head
-        if (head == nullptr) {
-            head = newNode;
+        // If list is empty
+        if (tail == nullptr) {
+            head = tail = newNode;
             return;
         }
         
-        // Traverse to the last node
-        Node* current = head;
-        while (current->next != nullptr) {
-            current = current->next;
-        }
+        // Link new node with current tail
+        newNode->prev = tail;
+        tail->next = newNode;
         
-        // Attach the new node at the end
-        current->next = newNode;
+        // Update tail to point to new node
+        tail = newNode;
     }
 
     // C. Insert node after a specific node
     void insertAfter(int existingValue, int newValue) {
-        // If list is empty, can't insert after
+        // If list is empty
         if (head == nullptr) {
             cout << "List is empty. Cannot insert." << endl;
             return;
         }
         
-        // Traverse to find the node with existingValue
+        // Find the node with existingValue
         Node* current = head;
         while (current != nullptr && current->data != existingValue) {
             current = current->next;
@@ -94,14 +94,24 @@ public:
         // Create new node
         Node* newNode = new Node(newValue);
         
+        // If inserting after tail
+        if (current == tail) {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+            return;
+        }
+        
         // Link new node
         newNode->next = current->next;
+        newNode->prev = current;
+        current->next->prev = newNode;
         current->next = newNode;
     }
 
     // D. Insert node before a specific node
     void insertBefore(int existingValue, int newValue) {
-        // If list is empty, can't insert before
+        // If list is empty
         if (head == nullptr) {
             cout << "List is empty. Cannot insert." << endl;
             return;
@@ -113,12 +123,9 @@ public:
             return;
         }
         
-        // Traverse to find the node before the target node
+        // Find the node with existingValue
         Node* current = head;
-        Node* previous = nullptr;
-        
         while (current != nullptr && current->data != existingValue) {
-            previous = current;
             current = current->next;
         }
         
@@ -132,8 +139,10 @@ public:
         Node* newNode = new Node(newValue);
         
         // Link new node
-        previous->next = newNode;
         newNode->next = current;
+        newNode->prev = current->prev;
+        current->prev->next = newNode;
+        current->prev = newNode;
     }
 
     // Display the list
@@ -153,7 +162,7 @@ public:
     }
 
     // Destructor to free memory
-    ~SinglyLinkedList() {
+    ~DoublyLinkedList() {
         while (head != nullptr) {
             Node* temp = head;
             head = head->next;
@@ -162,28 +171,27 @@ public:
     }
 };
 
-
 int main() {
-    SinglyLinkedList list;
+    DoublyLinkedList list;
 
     cout << "Inserting at beginning:" << endl;
     list.insertAtBeginning(10);
-    list.display();  
+    list.display();
 
     list.insertAtBeginning(5);
-    list.display();  
+    list.display();
 
     cout << "\nInserting at end:" << endl;
     list.insertAtEnd(15);
-    list.display();  
+    list.display();
 
     cout << "\nInserting after specific node:" << endl;
     list.insertAfter(10, 12);
-    list.display();  
+    list.display();
 
     cout << "\nInserting before specific node:" << endl;
     list.insertBefore(15, 14);
-    list.display();  
+    list.display();
 
     return 0;
 }
