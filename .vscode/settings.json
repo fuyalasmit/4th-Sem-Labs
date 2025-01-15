@@ -4,5 +4,6 @@
     "stack": "cpp",
     "ostream": "cpp",
     "cmath": "cpp"
-  }
+  },
+  "C_Cpp.default.compilerPath": "/mnt/c/MinGW/bin/g++.exe"
 }

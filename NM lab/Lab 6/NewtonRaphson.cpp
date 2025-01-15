@@ -6,12 +6,14 @@ using namespace std;
 double function(double x)
 {
     // return x*x -  4;
-    // return sin(x-4);
+    // return x * x * x - 2 * x + 3;
+    return sin(x-4);
 }
 double derivative(double x)
 {
     // return 2*x;
-    // return cos(x-4);
+    // return 3 * x * x - 2;
+    return cos(x-4);
 }
 
 int main()
@@ -22,13 +24,13 @@ int main()
 
     while (1)
     {
-        if (function(x0) == 0)
+        if (derivative(x0) == 0)
         {
             cout << "Error: Division by zero" << endl;
             break;
         }
         x1 = x0 - function(x0) / derivative(x0);
-        if (abs(x1 - x0) < 0.001)
+        if (fabs(x1 - x0) < 0.001)
         {
             cout << "The root is: " << x1 << endl;
             break;
