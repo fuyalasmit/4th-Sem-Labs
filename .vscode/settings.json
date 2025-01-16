@@ -5,5 +5,7 @@
     "ostream": "cpp",
     "cmath": "cpp"
   },
-  "C_Cpp.default.compilerPath": "/mnt/c/MinGW/bin/g++.exe"
+  "C_Cpp.default.compilerPath": "/mnt/c/MinGW/bin/g++.exe",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
 }
