@@ -1,105 +1,88 @@
 #include <iostream>
 using namespace std;
 
-void selectionSort(int arr[], int n) {
-    for (int i = 0; i < n - 1; i++) {
-        int minIndex = i;
-        for (int j = i + 1; j < n; j++) {
-            if (arr[j] < arr[minIndex])
-                minIndex = j;
+void ss(int a[], int n)
+{
+    for (int i = 0, j, m; i < n - 1; swap(a[i], a[m]), i++)
+        for (m = i, j = i + 1; j < n; j++)
+            m = a[j] < a[m] ? j : m;
+}
+
+void is(int a[], int n)
+{
+    for (int i = 1, j, k; i < n; a[j + 1] = k, i++)
+        for (k = a[i], j = i - 1; j >= 0 && a[j] > k; j--)
+            a[j + 1] = a[j];
+}
+
+void qs(int a[], int l, int h)
+{
+    if (l < h)
+    {
+        int p = a[h], i = l - 1, j;
+        for (j = l; j < h; j++)
+            if (a[j] < p)
+                swap(a[++i], a[j]);
+        swap(a[i + 1], a[h]);
+        qs(a, l, i);
+        qs(a, i + 2, h);
+    }
+}
+void qW(int a[], int n) { qs(a, 0, n - 1); }
+
+void sS(int a[], int n)
+{
+    for (int g = n / 2; g; g /= 2)
+        for (int i = g, j, t; i < n; i++)
+        {
+            t = a[i];
+            for (j = i; j >= g && a[j - g] > t; j -= g)
+                a[j] = a[j - g];
+            a[j] = t;
         }
-        swap(arr[i], arr[minIndex]);
+}
+
+void mg(int a[], int l, int m, int r)
+{
+    int x = m - l + 1, y = r - m, L[x], R[y], i = 0, j = 0, k = l;
+    for (; i < x; i++)
+        L[i] = a[l + i];
+    for (; j < y; j++)
+        R[j] = a[m + 1 + j];
+    for (i = j = 0; k <= r; a[k++] = i < x && (j == y || L[i] < R[j]) ? L[i++] : R[j++])
+        ;
+}
+void mS(int a[], int l, int r)
+{
+    if (l < r)
+    {
+        int m = l + (r - l) / 2;
+        mS(a, l, m);
+        mS(a, m + 1, r);
+        mg(a, l, m, r);
     }
 }
+void mW(int a[], int n) { mS(a, 0, n - 1); }
 
-void insertionSort(int arr[], int n) {
-    for (int i = 1; i < n; i++) {
-        int key = arr[i], j = i - 1;
-        while (j >= 0 && arr[j] > key) {
-            arr[j + 1] = arr[j];
-            j--;
-        }
-        arr[j + 1] = key;
-    }
-}
-
-void quickSort(int arr[], int low, int high) {
-    if (low >= high) return;
-    int pivot = arr[high], i = low - 1;
-    for (int j = low; j < high; j++) {
-        if (arr[j] < pivot) swap(arr[++i], arr[j]);
-    }
-    swap(arr[i + 1], arr[high]);
-    quickSort(arr, low, i);
-    quickSort(arr, i + 2, high);
-}
-
-void shellSort(int arr[], int n) {
-    for (int gap = n / 2; gap > 0; gap /= 2) {
-        for (int i = gap; i < n; i++) {
-            int temp = arr[i], j;
-            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
-                arr[j] = arr[j - gap];
-            arr[j] = temp;
-        }
-    }
-}
-
-void merge(int arr[], int left, int mid, int right) {
-    int n1 = mid - left + 1, n2 = right - mid;
-    int L[n1], R[n2];
-    for (int i = 0; i < n1; i++) L[i] = arr[left + i];
-    for (int i = 0; i < n2; i++) R[i] = arr[mid + 1 + i];
-
-    int i = 0, j = 0, k = left;
-    while (i < n1 && j < n2) arr[k++] = (L[i] <= R[j]) ? L[i++] : R[j++];
-    while (i < n1) arr[k++] = L[i++];
-    while (j < n2) arr[k++] = R[j++];
-}
-
-void mergeSort(int arr[], int left, int right) {
-    if (left >= right) return;
-    int mid = left + (right - left) / 2;
-    mergeSort(arr, left, mid);
-    mergeSort(arr, mid + 1, right);
-    merge(arr, left, mid, right);
-}
-
-void display(int arr[], int n) {
-    for (int i = 0; i < n; i++) cout << arr[i] << " ";
+void p(int *a, int n)
+{
+    for (; n--;)
+        cout << *a++ << " ";
     cout << endl;
 }
 
-int main() {
-    int arr[] = {64, 34, 25, 12, 22, 11, 90};
-    int n = sizeof(arr) / sizeof(arr[0]);
-
-    cout << "Original array: ";
-    display(arr, n);
-
-    selectionSort(arr, n);
-    cout << "Selection Sort: ";
-    display(arr, n);
-
-    int arr2[] = {64, 34, 25, 12, 22, 11, 90};
-    insertionSort(arr2, n);
-    cout << "Insertion Sort: ";
-    display(arr2, n);
-
-    int arr3[] = {64, 34, 25, 12, 22, 11, 90};
-    quickSort(arr3, 0, n - 1);
-    cout << "Quick Sort: ";
-    display(arr3, n);
-
-    int arr4[] = {64, 34, 25, 12, 22, 11, 90};
-    shellSort(arr4, n);
-    cout << "Shell Sort: ";
-    display(arr4, n);
-
-    int arr5[] = {64, 34, 25, 12, 22, 11, 90};
-    mergeSort(arr5, 0, n - 1);
-    cout << "Merge Sort: ";
-    display(arr5, n);
-
-    return 0;
+int main()
+{
+    int o[] = {64, 34, 25, 12, 22, 11, 90}, n = 7, t[7];
+    cout << "Original: ";
+    p(o, n);
+    void (*f[])(int *, int) = {ss, is, qW, sS, mW};
+    const char *s[] = {"Selection", "Insertion", "Quick", "Shell", "Merge"};
+    for (int i = 0; i < 5; i++)
+    {
+        copy(o, o + n, t);
+        f[i](t, n);
+        cout << s[i] << ": ";
+        p(t, n);
+    }
 }
