@@ -3,13 +3,10 @@
 #include <iostream>
 using namespace std;
 
-// Node structure for the linked list
 class Node {
 public:
-    int coeff;  // Coefficient
-    int expo;   // Exponent
+    int coeff, expo;
     Node* next;
-
     Node(int c, int e) {
         coeff = c;
         expo = e;
@@ -17,131 +14,97 @@ public:
     }
 };
 
-// Function to create a polynomial
-Node* createPolynomial() {
-    Node* head = nullptr;
+class List {
+public:
+    Node* head;
+    List() { head = nullptr; }
 
-    cout << "Enter terms of the polynomial (coefficient exponent). Use '-1 -1' to stop:\n";
-    while (true) {
-        int coeff, expo;
-        cin >> coeff >> expo;
-
-        if (coeff == -1 && expo == -1) break;
-
-        // Create a new node
-        Node* newNode = new Node(coeff, expo);
-
-        // Insert the node in sorted order based on exponent
-        if (head == nullptr || expo > head->expo) {
-            // Insert at the head
-            newNode->next = head;
-            head = newNode;
+    void insert(int coeff, int expo) {
+        Node* temp = new Node(coeff, expo);
+        if (head==nullptr) {
+            head = temp;
         } else {
-            Node* current = head;
-            while (current->next != nullptr && current->next->expo > expo) {
-                current = current->next;
-            }
-            if (current->expo == expo) {
-                // Combine like terms
-                current->coeff += coeff;
-                delete newNode; // Clean up unused node
-            } else {
-                // Insert in the middle or end
-                newNode->next = current->next;
-                current->next = newNode;
-            }
+            Node* curr = head;
+            while (curr->next!=nullptr)
+                curr = curr->next;
+            curr->next = temp;
         }
     }
-    return head;
-}
 
-// Function to display a polynomial
-void displayPolynomial(Node* poly) {
-    if (!poly) {
-        cout << "0\n";
-        return;
-    }
-
-    while (poly) {
-        cout << poly->coeff << "x^" << poly->expo;
-        if (poly->next) cout << " + ";
-        poly = poly->next;
-    }
-    cout << endl;
-}
-
-// Function to append remaining terms to the result
-void appendRemaining(Node*& tail, Node* poly) {
-    while (poly) {
-        Node* newNode = new Node(poly->coeff, poly->expo);
-        if (tail) {
-            tail->next = newNode;
-            tail = newNode;
-        } else {
-            tail = newNode;
+    void display() {
+        Node* temp = head;
+        while (temp->next!=nullptr) {
+            cout << " + "<<temp->coeff << "x^" << temp->expo;
+            temp = temp->next;
         }
-        poly = poly->next;
+        cout << endl;
     }
-}
+};
 
-// Function to add two polynomials
-Node* addPolynomials(Node* p, Node* q) {
-    Node* result = nullptr; // Head of result
-    Node* tail = nullptr;   // Tail pointer for result
+Node* addPoly(Node* p, Node* q) {
+    Node* rHead = nullptr;
+    Node* rTail = nullptr;
 
     while (p && q) {
-        Node* newNode = nullptr;
-
+        Node* temp = nullptr;
         if (p->expo == q->expo) {
-            // Add coefficients of like terms
-            newNode = new Node(p->coeff + q->coeff, p->expo);
+            temp = new Node(p->coeff + q->coeff, p->expo);
             p = p->next;
             q = q->next;
         } else if (p->expo > q->expo) {
-            // Copy term from P
-            newNode = new Node(p->coeff, p->expo);
+            temp = new Node(p->coeff, p->expo);
             p = p->next;
-        } else { // q->expo > p->expo
-            // Copy term from Q
-            newNode = new Node(q->coeff, q->expo);
+        } else {
+            temp = new Node(q->coeff, q->expo);
             q = q->next;
         }
 
-        // Append to result
-        if (!result) {
-            result = newNode;
-            tail = newNode;
+        if (!rHead) {
+            rHead = rTail = temp;
         } else {
-            tail->next = newNode;
-            tail = newNode;
+            rTail->next = temp;
+            rTail = temp;
         }
     }
 
-    // Append remaining terms
-    appendRemaining(tail, p);
-    appendRemaining(tail, q);
+    // Copy remaining terms
+    while (p) {
+        rTail->next = new Node(p->coeff, p->expo);
+        rTail = rTail->next;
+        p = p->next;
+    }
+    while (q) {
+        rTail->next = new Node(q->coeff, q->expo);
+        rTail = rTail->next;
+        q = q->next;
+    }
 
-    return result;
+    return rHead;
 }
 
 int main() {
-    cout << "Create the first polynomial:\n";
-    Node* polyP = createPolynomial();
+    List P, Q, R;
 
-    cout << "Create the second polynomial:\n";
-    Node* polyQ = createPolynomial();
+    // Sample Input for P: 5x^2 + 4x^1 + 2x^0
+    P.insert(5, 2);
+    P.insert(4, 1);
+    P.insert(2, 0);
 
-    cout << "First Polynomial: ";
-    displayPolynomial(polyP);
+    // Sample Input for Q: 5x^1 + 5x^0
+    Q.insert(5, 1);
+    Q.insert(5, 0);
 
-    cout << "Second Polynomial: ";
-    displayPolynomial(polyQ);
+    cout << "Polynomial P: ";
+    P.display();
 
-    // Add the two polynomials
-    Node* result = addPolynomials(polyP, polyQ);
+    cout << "Polynomial Q: ";
+    Q.display();
 
-    cout << "Resultant Polynomial: ";
-    displayPolynomial(result);
+    Node* result = addPoly(P.head, Q.head);
+    R.head = result;
+
+    cout << "Sum Polynomial R: ";
+    R.display();
 
     return 0;
 }
